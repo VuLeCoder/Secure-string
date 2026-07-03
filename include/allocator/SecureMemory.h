@@ -17,7 +17,7 @@ inline void secure_memzero(void* ptr, std::size_t size) {
 
     #else
         volatile unsigned char* p = static_cast<volatile unsigned char*>(ptr);
-        while(--size) {
+        while(size--) {
             *p++ = 0;
         }
     
