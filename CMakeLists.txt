@@ -35,10 +35,11 @@ endif()
 add_library(SecureAllocator src/allocator/SecureMemory.cpp)
 target_include_directories(SecureAllocator PUBLIC ${PROJECT_SOURCE_DIR}/include/allocator)
 
-# add_library(SecureString
-#     src/string/...
-# )
-# target_include_directories(SecureString PUBLIC ${PROJECT_SOURCE_DIR}/include/string)
+add_library(SecureString
+    src/allocator/SecureMemory.cpp
+    src/string/SecureString.cpp
+)
+target_include_directories(SecureString PUBLIC ${PROJECT_SOURCE_DIR}/include/string)
 
 # ======================================================================
 # Tests
