@@ -1,3 +1,6 @@
+# === === === === === === === === ===
+# === === ===  Allocator  === === ===
+# === === === === === === === === ===
 add_executable(TestAllocate     allocator/test_allocate.cpp)
 target_link_libraries(TestAllocate PRIVATE SecureAllocator)
 add_test(NAME TestAllocate COMMAND TestAllocate)
@@ -17,3 +20,10 @@ add_test(NAME TestRebind COMMAND TestRebind)
 add_executable(TestVector       allocator/test_vector.cpp)
 target_link_libraries(TestVector PRIVATE SecureAllocator)
 add_test(NAME TestVector COMMAND TestVector)
+
+# === === === === === === === === ===
+# === ===    Secure String    === ===
+# === === === === === === === === ===
+add_executable(string_TestAlias       string/test_string_method.cpp)
+target_link_libraries(string_TestAlias PRIVATE SecureString)
+add_test(NAME string_TestAlias COMMAND string_TestAlias)
