@@ -4,6 +4,7 @@
 #include <new>
 #include <limits>
 #include <type_traits>
+#include <stdexcept>
 
 #include "./SecureMemory.h"
 
@@ -19,7 +20,7 @@ public:
     constexpr SecureAllocator(const SecureAllocator<U>&) noexcept {}
     
     T* allocate(std::size_t n);
-    void deallocate(T* p, std::size_t n);
+    void deallocate(T* p, std::size_t n) noexcept;
     
     template<typename U>
     friend bool operator==(const SecureAllocator&, const SecureAllocator<U>&) noexcept {
@@ -40,12 +41,15 @@ T* SecureAllocator<T>::allocate(std::size_t n)
     }
 
     T* ptr = static_cast<T*>(::operator new(n * sizeof(T)));
-    secure::lock_memory(ptr, n * sizeof(T));
+    if (!secure::lock_memory(ptr, n * sizeof(T))) {
+        ::operator delete(ptr);
+        throw std::runtime_error("Failed to lock secure memory.");
+    }
     return ptr;
 }
 
 template<typename T>
-void SecureAllocator<T>::deallocate(T* p, std::size_t n)
+void SecureAllocator<T>::deallocate(T* p, std::size_t n) noexcept
 {
     if(p) {
         secure::secure_memzero(p, n * sizeof(T));
@@ -53,4 +57,3 @@ void SecureAllocator<T>::deallocate(T* p, std::size_t n)
     }
     ::operator delete(p);
 }
-
