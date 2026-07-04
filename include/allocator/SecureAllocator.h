@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <new>
 #include <limits>
+#include <type_traits>
 
 #include "./SecureMemory.h"
 
@@ -10,15 +11,25 @@ template<typename T>
 class SecureAllocator {
 public:
     using value_type = T;
-
+    using is_always_equal = std::true_type;
+    
     SecureAllocator() = default;
-
+    
     template<typename U>
-    SecureAllocator(const SecureAllocator<U>&) {}
-
+    constexpr SecureAllocator(const SecureAllocator<U>&) noexcept {}
+    
     T* allocate(std::size_t n);
-
     void deallocate(T* p, std::size_t n);
+    
+    template<typename U>
+    friend bool operator==(const SecureAllocator&, const SecureAllocator<U>&) noexcept {
+        return true;
+    }
+    
+    template<typename U>
+    friend bool operator!=(const SecureAllocator&, const SecureAllocator<U>&) noexcept {
+        return false;
+    }
 };
 
 template<typename T>
@@ -28,16 +39,17 @@ T* SecureAllocator<T>::allocate(std::size_t n)
         throw std::bad_alloc();
     }
 
-    return static_cast<T*>(
-        ::operator new(n * sizeof(T))
-    );
+    T* ptr = static_cast<T*>(::operator new(n * sizeof(T)));
+    secure::lock_memory(ptr, n * sizeof(T));
+    return ptr;
 }
 
 template<typename T>
 void SecureAllocator<T>::deallocate(T* p, std::size_t n)
 {
     if(p) {
-        secure_memzero(p, n * sizeof(T));
+        secure::secure_memzero(p, n * sizeof(T));
+        secure::unlock_memory(p, n * sizeof(T));
     }
     ::operator delete(p);
 }
