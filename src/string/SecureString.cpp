@@ -2,7 +2,7 @@
 #include <cstddef>
 #include <utility>
 
-SecureString::SecureString() : data_() {}
+SecureString::SecureString() noexcept : data_() {}
 SecureString::SecureString(const char* data) : data_(data) {}
 SecureString::SecureString(std::string_view data) : data_(data) {}
 
@@ -53,15 +53,15 @@ bool SecureString::empty() const noexcept {
     return data_.empty();
 }
 
-char& SecureString::operator[](size_t i) {
+char& SecureString::operator[](size_t i) noexcept {
     return data_[i];
 }
 
-const char& SecureString::operator[](size_t i) const {
+const char& SecureString::operator[](size_t i) const noexcept {
     return data_[i];
 }
 
-void SecureString::clear() {
+void SecureString::clear() noexcept {
     secure::secure_memzero(data_.data(), data_.capacity());
     data_.clear();
 }
@@ -81,7 +81,7 @@ void SecureString::push_back(char c) {
     data_.push_back(c);
 }
 
-void SecureString::pop_back() {
+void SecureString::pop_back() noexcept {
     size_t n = data_.size();
     if(n > 0) {
         secure::secure_memzero(data_.data() + n - 1, 1);
@@ -89,11 +89,11 @@ void SecureString::pop_back() {
     }
 }
 
-bool SecureString::operator==(const SecureString& other) const {
+bool SecureString::operator==(const SecureString& other) const noexcept {
     return data_ == other.data_;
 }
 
-bool SecureString::equals(const SecureString& other) const {
+bool SecureString::equals(const SecureString& other) const noexcept {
     if(size() != other.size()) {
         return false;
     }
