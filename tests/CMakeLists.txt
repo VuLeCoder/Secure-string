@@ -27,3 +27,7 @@ add_test(NAME TestVector COMMAND TestVector)
 add_executable(string_TestAlias       string/test_string_method.cpp)
 target_link_libraries(string_TestAlias PRIVATE SecureString)
 add_test(NAME string_TestAlias COMMAND string_TestAlias)
+
+add_executable(string_TestSecureString       string/test_secure_string_comprehensive.cpp)
+target_link_libraries(string_TestSecureString PRIVATE SecureString)
+add_test(NAME string_TestSecureString COMMAND string_TestSecureString)
