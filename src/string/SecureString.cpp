@@ -9,11 +9,13 @@ SecureString::SecureString(std::string_view data) : data_(data) {}
 SecureString::SecureString(const SecureString& other) : data_(other.data_) {}
 SecureString::SecureString(SecureString&& other) noexcept : data_(std::move(other.data_)) {}
 
-SecureString::~SecureString() = default;
+SecureString::~SecureString() {
+    secure::secure_memzero(data_.data(), data_.capacity());
+};
 
 SecureString& SecureString::operator=(const SecureString& other) {
     if(this != &other) {
-        secure::secure_memzero(data_.data(), data_.size());
+        secure::secure_memzero(data_.data(), data_.capacity());
         data_ = other.data();
     }
     return *this;
@@ -21,7 +23,7 @@ SecureString& SecureString::operator=(const SecureString& other) {
 
 SecureString& SecureString::operator=(SecureString&& other) noexcept {
     if(this != &other) {
-        secure::secure_memzero(data_.data(), data_.size());
+        secure::secure_memzero(data_.data(), data_.capacity());
         data_ = std::move(other.data_);
     }
     return *this;
@@ -56,7 +58,7 @@ const char& SecureString::operator[](size_t i) const {
 }
 
 void SecureString::clear() {
-    secure::secure_memzero(data_.data(), data_.size());
+    secure::secure_memzero(data_.data(), data_.capacity());
     data_.clear();
 }
 
