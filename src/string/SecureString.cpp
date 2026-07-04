@@ -16,7 +16,7 @@ SecureString::~SecureString() {
 SecureString& SecureString::operator=(const SecureString& other) {
     if(this != &other) {
         secure::secure_memzero(data_.data(), data_.capacity());
-        data_ = other.data();
+        data_ = other.data_;
     }
     return *this;
 }
