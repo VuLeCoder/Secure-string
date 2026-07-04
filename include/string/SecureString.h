@@ -26,6 +26,7 @@ public:
 
     const char* c_str() const noexcept;
 
+    size_t capacity() const noexcept;
     size_t size() const noexcept;
     bool empty() const noexcept;
 

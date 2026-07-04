@@ -41,6 +41,10 @@ const char* SecureString::c_str() const noexcept {
     return data_.c_str();
 }
 
+size_t SecureString::capacity() const noexcept {
+    return data_.capacity();
+}
+
 size_t SecureString::size() const noexcept {
     return data_.size();
 }
