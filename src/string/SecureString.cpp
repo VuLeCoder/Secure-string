@@ -9,9 +9,9 @@ SecureString::SecureString(std::string_view data) : data_(data) {}
 SecureString::SecureString(const SecureString& other) : data_(other.data_) {}
 SecureString::SecureString(SecureString&& other) noexcept : data_(std::move(other.data_)) {}
 
-SecureString::~SecureString() {
+SecureString::~SecureString() noexcept{
     secure::secure_memzero(data_.data(), data_.capacity());
-};
+}
 
 SecureString& SecureString::operator=(const SecureString& other) {
     if(this != &other) {
