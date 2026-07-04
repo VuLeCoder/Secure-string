@@ -100,6 +100,11 @@ SecureString& SecureString::operator+=(const SecureString& add) {
     return *this;
 }
 
+SecureString& SecureString::operator+=(const char* add) {
+    data_ += add;
+    return *this;
+}
+
 SecureString& SecureString::operator+=(std::string_view s) {
     data_ += s;
     return *this;
