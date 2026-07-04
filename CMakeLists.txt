@@ -33,13 +33,19 @@ endif()
 # ======================================================================
 
 add_library(SecureAllocator src/allocator/SecureMemory.cpp)
-target_include_directories(SecureAllocator PUBLIC ${PROJECT_SOURCE_DIR}/include/allocator)
+target_include_directories(SecureAllocator PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
 
 add_library(SecureString
     src/allocator/SecureMemory.cpp
     src/string/SecureString.cpp
 )
-target_include_directories(SecureString PUBLIC ${PROJECT_SOURCE_DIR}/include/string)
+target_include_directories(SecureString PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<INSTALL_INTERFACE:include>
+)
 
 # ======================================================================
 # Tests
