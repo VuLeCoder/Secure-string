@@ -95,7 +95,7 @@ bool SecureString::equals(const SecureString& other) const {
     return secure::secure_compare(data(), other.data(), size());
 }
 
-SecureString& SecureString::operator+=(SecureString& add) {
+SecureString& SecureString::operator+=(const SecureString& add) {
     data_ += add.data_;
     return *this;
 }

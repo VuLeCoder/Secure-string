@@ -42,6 +42,6 @@ public:
     bool operator==(const SecureString&) const;
     bool equals(const SecureString&) const;
     
-    SecureString& operator+=(SecureString&);
+    SecureString& operator+=(const SecureString&);
     SecureString& operator+=(std::string_view);
 };
