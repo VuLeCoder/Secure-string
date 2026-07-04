@@ -33,9 +33,7 @@ public:
     const char& operator[](size_t) const;
 
     void clear();
-    void resize();
-    void reserve();
-    void shrink_to_fit();
+    void resize(size_t);
 
     void append(std::string_view);
     void push_back(char);
@@ -43,4 +41,7 @@ public:
 
     bool operator==(const SecureString&) const;
     bool equals(const SecureString&) const;
+    
+    SecureString& operator+=(SecureString&);
+    SecureString& operator+=(std::string_view);
 };
