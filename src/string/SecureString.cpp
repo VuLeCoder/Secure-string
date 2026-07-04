@@ -79,8 +79,10 @@ void SecureString::push_back(char c) {
 
 void SecureString::pop_back() {
     size_t n = data_.size();
-    secure::secure_memzero(data_.data() + n - 1, 1);
-    data_.pop_back();
+    if(n > 0) {
+        secure::secure_memzero(data_.data() + n - 1, 1);
+        data_.pop_back();
+    }
 }
 
 bool SecureString::operator==(const SecureString& other) const {
