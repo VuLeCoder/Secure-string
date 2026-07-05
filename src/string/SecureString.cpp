@@ -76,6 +76,11 @@ void SecureString::resize(size_t n) {
     data_.resize(n);
 }
 
+void SecureString::assign(const char* data, size_t size) {
+    clear();
+    data_.assign(data, size);
+}
+
 void SecureString::append(std::string_view sv) {
     data_.append(sv);
 }

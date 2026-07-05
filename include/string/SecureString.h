@@ -35,6 +35,7 @@ public:
 
     void clear() noexcept;
     void resize(size_t);
+    void assign(const char*, size_t);
 
     void append(std::string_view);
     void push_back(char);
