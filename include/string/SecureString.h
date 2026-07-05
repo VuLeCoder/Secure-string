@@ -24,6 +24,7 @@ public:
     const char* data() const noexcept;
 
     const char* c_str() const noexcept;
+    std::string_view view() const noexcept;
 
     size_t capacity() const noexcept;
     size_t size() const noexcept;

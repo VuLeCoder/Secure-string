@@ -40,6 +40,10 @@ const char* SecureString::c_str() const noexcept {
     return data_.c_str();
 }
 
+std::string_view SecureString::view() const noexcept {
+    return std::string_view(data_.data(), data_.size());
+}
+
 size_t SecureString::capacity() const noexcept {
     return data_.capacity();
 }
