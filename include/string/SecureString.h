@@ -46,4 +46,8 @@ public:
     SecureString& operator+=(const SecureString&);
     SecureString& operator+=(const char*);
     SecureString& operator+=(std::string_view);
+
+    bool operator!=(const SecureString&) const noexcept;
+
+    bool find(const SecureString&) const;
 };

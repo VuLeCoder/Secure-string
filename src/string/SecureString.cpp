@@ -115,3 +115,11 @@ SecureString& SecureString::operator+=(std::string_view s) {
     data_ += s;
     return *this;
 }
+
+bool SecureString::find(const SecureString& other) const {
+    return data_.find(other.data_) != std::string::npos;
+}
+
+bool SecureString::operator!=(const SecureString& other) const noexcept{
+    return data_ != other.data_;
+}
