@@ -4,7 +4,6 @@
 
 SecureString::SecureString() noexcept : data_() {}
 SecureString::SecureString(const char* data) : data_(data) {}
-SecureString::SecureString(std::string_view data) : data_(data) {}
 
 SecureString::SecureString(const SecureString& other) : data_(other.data_) {}
 SecureString::SecureString(SecureString&& other) noexcept : data_(std::move(other.data_)) {}

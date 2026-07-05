@@ -11,7 +11,6 @@ private:
 public:
     SecureString() noexcept;
     SecureString(const char*);
-    SecureString(std::string_view);
 
     SecureString(const SecureString&);
     SecureString(SecureString&&) noexcept;
