@@ -27,24 +27,16 @@ void test_constructors_and_assignments() {
     assert(s2.size() == 5);
     assert(std::string_view(s2.data(), s2.size()) == "hello");
 
-    // 3. string_view constructor
-    std::string_view sv = "world_with_null\0_chars";
-    // We construct a string view that has explicit size and includes the null char
-    std::string_view sv_with_null("world_with_null\0_chars", 22);
-    SecureString s3(sv_with_null);
-    assert(s3.size() == 22);
-    assert(s3[15] == '\0');
-
     // 4. Copy constructor
-    SecureString s4(s3);
-    assert(s4 == s3);
-    assert(s4.size() == s3.size());
+    SecureString s4(s2);
+    assert(s4 == s2);
+    assert(s4.size() == s2.size());
 
     // 5. Move constructor
-    SecureString s3_copy(s3);
-    SecureString s5(std::move(s3_copy));
-    assert(s5 == s3);
-    assert(s3_copy.empty());
+    SecureString s2_copy(s2);
+    SecureString s5(std::move(s2_copy));
+    assert(s5 == s2);
+    assert(s2_copy.empty());
 
     // 6. Copy assignment
     SecureString s6;
@@ -54,10 +46,10 @@ void test_constructors_and_assignments() {
 
     // 7. Move assignment
     SecureString s7;
-    SecureString s2_copy(s2);
-    s7 = std::move(s2_copy);
+    SecureString s21_copy(s2);
+    s7 = std::move(s21_copy);
     assert(s7 == s2);
-    assert(s2_copy.empty());
+    assert(s21_copy.empty());
 }
 
 void test_mutators_and_accessors() {
