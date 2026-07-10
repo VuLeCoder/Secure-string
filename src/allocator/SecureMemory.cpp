@@ -2,20 +2,35 @@
 
 #include <cstddef>
 #include <cstring>
-#include <memoryapi.h>
-#include <minwindef.h>
+
+#ifdef _WIN32
 #include <windows.h>
+#else
+#include <sys/mman.h>
+#endif
 
 void secure::secure_memzero(void* ptr, std::size_t size) {
+    #ifdef _WIN32
     SecureZeroMemory(ptr, size);
+    #else
+    explicit_bzero(ptr, size);
+    #endif
 }
 
 bool secure::lock_memory(void *ptr, std::size_t size) {
+    #ifdef _WIN32
     return VirtualLock(ptr, size) != FALSE;
+    #else
+    mlock(ptr, size);
+    #endif
 }
 
 bool secure::unlock_memory(void *ptr, std::size_t size) {
+    #ifdef _WIN32
     return VirtualUnlock(ptr, size) != FALSE;
+    #else
+    munlock(ptr, size);
+    #endif
 }
 
 bool secure::secure_compare(const void *ptr1, const void *ptr2, std::size_t size) {
