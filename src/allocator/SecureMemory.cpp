@@ -1,4 +1,4 @@
-#include "./../../include/allocator/SecureMemory.h"
+#include "allocator/SecureMemory.h"
 
 #include <cstddef>
 #include <cstring>
