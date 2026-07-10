@@ -21,7 +21,7 @@ bool secure::lock_memory(void *ptr, std::size_t size) {
     #ifdef _WIN32
     return VirtualLock(ptr, size) != FALSE;
     #else
-    mlock(ptr, size);
+    return mlock(ptr, size) == 0;
     #endif
 }
 
@@ -29,7 +29,7 @@ bool secure::unlock_memory(void *ptr, std::size_t size) {
     #ifdef _WIN32
     return VirtualUnlock(ptr, size) != FALSE;
     #else
-    munlock(ptr, size);
+    return munlock(ptr, size) == 0;
     #endif
 }
 
