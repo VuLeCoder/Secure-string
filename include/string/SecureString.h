@@ -1,8 +1,6 @@
 #pragma once
-#include <cstddef>
 #include <string>
-#include <string_view>
-#include "./../allocator/SecureAllocator.h"
+#include "allocator/SecureAllocator.h"
 
 class SecureString {
 private:

@@ -1,12 +1,11 @@
 #pragma once
 
-#include <cstddef>
 #include <new>
 #include <limits>
 #include <type_traits>
 #include <stdexcept>
 
-#include "./SecureMemory.h"
+#include "SecureMemory.h"
 
 template<typename T>
 class SecureAllocator {
